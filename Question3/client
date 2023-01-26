@@ -1,0 +1,9 @@
+import socket
+
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(("10.0.2.15", 8888))
+
+quote = client_socket.recv(1024).decode()
+print("Quotes of the day: ", quote)
+
+client_socket.close()
