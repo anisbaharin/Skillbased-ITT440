@@ -1,0 +1,14 @@
+import socket
+
+def main():
+  s = socket.socket(socket.AF-inet, socket.SOCK_STREAM)
+  
+  s.bind(("127.0.0.1", 6463))
+  print("Convert temperature in Fahrenheit to Celcius...")
+  
+  fahrenheit = input("Enter temperature: ")
+  s.send(fahrenheit.encode())
+  
+  celsius = s.recv(1024).decode()
+  print("The temperature in celcius is ", celsius)
+main()
