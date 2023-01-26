@@ -1,1 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <sys/socket.h>
+#include <sys/typs.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 
+int main(int argc, char*argv[]) {
+  int socket-desc, client_sock, c, read_size;
+  struct sockaddr_in server, client;
+  char buffer[5];
+  srand(time(NULL));
+  int n;
+  socket_desc = socket(AF_INET, SOCK_STREAM, 0);
+  if (socket_desc == -1)
+  {
+    printf("could not create socket");
+   }
+   puts("Socket created");
+   
+   server.sin_family = AF_INET;
+   server.sin_addr.s_addr = INADDR_ANY;
+   server.sin_port = htons(8080);
+   
+   if(bind(socket_desc, (struct sockaddr*) & server, sizeof(server)) < 0) {
+   perror("bind failed, error");
+   return 1;
+   }
+   puts("Bind done");
+   
+   listen(socket_desc, 3);
+   
+   puts("Waiting for incoming connection...");
+   c = sizeof(struct sockaddr_in);
+   
+   if(client_sock < 0)
+   {
+   perror("Accept failed");
+   return 1;
+   }
+   puts("Connection accepted");
+   client_sock = accept(socket_desc,(struct sockaddr*) & client, (socklen_t*) & c);
+   
+   for (int i=0; i<1; i++) {
+   bzero(buffer, 4);
+   if(n,0)perror("Error reading from socket");
+   
+   int randomNum = rand() % 900 + 100;
+   sprintf(buffer, "%d \n", randomNum);
+   
+   n=write(client_sock,buffer,strlen(buffer));
+   if(n<0) perror("Error writing to socket);
+   }
+   return 0;
+   }
