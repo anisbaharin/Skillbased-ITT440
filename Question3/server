@@ -1,0 +1,27 @@
+import socket
+import random
+import threading
+
+quotes = ["Success usually comes to those who are busy looking for it - Henry David Thoreau",
+          "I never dreamed about success. I worked for it - Estee Lauder",
+          "Don't let yesterday take up too much of today - Will Rogers",
+          "Either you run the day or the day runs you - Jim Rohn",
+          "Setting goalds is the first step in turning the invisible into the visible - Tony Robbins"
+          ]
+          
+       def handle_client(client_socket):
+        quote = random.choice(quotes)
+        client_socket.send(quote.encode())
+        client_socket.close()
+        
+        server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_socket.bind(("10.0.2.15", 8888))
+        server_socket.listen(5)
+        
+        print("Quote of the day server is listening on port 8888...")
+        
+        while True:
+        client_socket, addr = server_socket.accept()
+        print("Got a connection from: ", addr)
+        client_handler = threading.Thread(target=handle_client,args=(client_socket,))
+        client_handler.start()
